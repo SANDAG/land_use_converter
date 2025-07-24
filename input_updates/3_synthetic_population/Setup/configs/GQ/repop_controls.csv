@@ -1,0 +1,6 @@
+target,geography,seed_table,importance,control_field,expression
+num_gq,MAZ,households,10000000,gqs,households.TYPE == 3
+age_0_16,MAZ,persons,1000,age_0_16,persons.age <16
+age_16_18,MAZ,persons,1000,age_16_18,(persons.age >=16) & (persons.age <18)
+age_18_24,MAZ,persons,1000,age_18_24,(persons.age >=18) & (persons.age <24)
+age_24p,MAZ,persons,1000,age_24p,persons.age >=24

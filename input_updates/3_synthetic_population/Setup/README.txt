@@ -1,0 +1,1 @@
+Extract software.zip to create a folder "software" which would have "Anaconda2" and "R" sub-directories.
