@@ -38,7 +38,7 @@ from bokeh.layouts import column
 from bokeh.plotting import figure, output_file, save
 from bokeh.models import ColumnDataSource, TableColumn, DataTable, Paragraph, NumberFormatter, Div
 from bokeh.io import show
-from bokeh.models.widgets import Tabs, Panel
+from bokeh.models import Tabs, TabPanel
 
 
 warnings.filterwarnings("ignore")  
@@ -283,13 +283,16 @@ class LUConverter(object):
         #define file locations
         inputdefs       = _join(self.indir, 'LandUseUnitTypes.xlsx')
     
-        if os.path.isfile(_join(self.indir,'..','..','..','network_build','data', 'mgra_zone.csv')):
-            orig_mgra_file  = _join(self.indir,'..','..','1_taz_split','outputs',self.properties['mgra.socec.file']) 
-            self.mgra_taz    = pd.read_csv(_join(self.indir,'..','..','..','network_build','data', 'mgra_zone.csv'))
-            self.mgra_taz.columns = [col.replace(' ','') for col in self.mgra_taz.columns]
-        else:
-            orig_mgra_file  = _join(self.mdldir, 'input','original',self.properties['mgra.socec.file']) 
-            self.mgra_taz    = pd.read_csv(orig_mgra_file, usecols =['mgra','taz'])
+        # might need to change these instead to not reference the parent directories
+        # if os.path.isfile(_join(self.indir,'..','..','..','network_build','data', 'mgra_zone.csv')):
+        #     orig_mgra_file  = _join(self.indir,'..','..','1_taz_split','outputs',self.properties['mgra.socec.file']) 
+        #     self.mgra_taz    = pd.read_csv(_join(self.indir,'..','..','..','network_build','data', 'mgra_zone.csv'))
+        #     self.mgra_taz.columns = [col.replace(' ','') for col in self.mgra_taz.columns]
+        # else:
+
+        # udpate line here to go to original network
+        orig_mgra_file  = _join(self.mdldir, self.properties['mgra.socec.file']) 
+        self.mgra_taz    = pd.read_csv(orig_mgra_file, usecols =['mgra','taz'])
 
         maz_shp               = _join(self.indir, 'SANDAG_MGRA_final.shp')  #need to have in setup
         # Read Inputs
@@ -358,7 +361,7 @@ class LUConverter(object):
 
         #calc priorities with available input/self.densities, use highest self.priority available
         priorities      = priorities.mul(inupdate_tab).mul(densities_tab)
-        priorities      = priorities.where(priorities.values == priorities.min(axis=1)[:,None])
+        priorities      = priorities.where(priorities.values == np.expand_dims(priorities.min(axis=1), axis=1))
         priorities      = pd.DataFrame(np.where(priorities.isna(),priorities,1), columns=priorities.columns, index = priorities.index)
 
         #get usable self.densities in self.priority categories
@@ -422,7 +425,7 @@ class LUConverter(object):
         if sum(check_update) > 0.0001:
             for i,diff in enumerate(check_update):
                 if diff > 0:
-                    print("ERROR: MisMatch in Employment Update for MGRA {}".format(emp_update.index[i]))
+                    print("ERROR: MisMatch in Employment Update for MGRA {}".format(self.emp_update.index[i]))
             sys.exit()
         #update employment based on housing
         #housing/employee
@@ -432,7 +435,7 @@ class LUConverter(object):
         #OPTIONAL FILTER
         #emp_cpa_hh   = emp_cpa_hh[emp_cpa_hh.emp_total > 0]
         emp_msa_hh   = emp_msa_hh.groupby('pseudomsa',as_index = False)[list(empcols) + ['emp_total','hs']].sum()
-        emp_msa_hh   = emp_msa_hh.append(emp_msa_hh.sum(), ignore_index = True)
+        emp_msa_hh   = pd.concat([emp_msa_hh, emp_msa_hh.sum()], ignore_index = True)
         emp_msa_hh.iloc[[-1],[0]] = 'REGIONAL'
         emp_msa_hh['hh_emp'] = emp_msa_hh['hs']/emp_msa_hh['emp_total']
         for col in empcols:
@@ -695,6 +698,7 @@ class LUConverter(object):
                 out_mgra[x]=out_mgra[x].round(0).astype(self.inmgra[x].dtypes.name)
             else:
                 out_mgra[x]=out_mgra[x].astype(self.inmgra[x].dtypes.name)
+
         out_mgra.to_csv(_join(self.outdir,self.properties['mgra.socec.file'].split(r'/')[1]),index = False)
 
 
@@ -762,7 +766,7 @@ class LUConverter(object):
             layout1 = column(title1, table1, title2,table2, title3, table3, title4)
         else:
             layout1 = column(title1, table1, title2,table2, title3, table3)
-        tab1 = Panel(child=layout1, title = 'Land Use Data')
+        tab1 = TabPanel(child=layout1, title = 'Land Use Data')
 
         
         #create map
@@ -850,7 +854,7 @@ class LUConverter(object):
         div = Div(text=m._repr_html_())
 
         layout2 = column(div)
-        tab2 = Panel(child = layout2, title = 'Map')
+        tab2 = TabPanel(child = layout2, title = 'Map')
         tabs = Tabs(tabs=[tab1,tab2])
         output_file(_join(self.outdir,'landuse_updates.html'))
         save(tabs)

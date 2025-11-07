@@ -17,7 +17,7 @@ SET INPUT_DIR=%WORKING_DIR%inputs
 SET OUTPUT_DIR=%WORKING_DIR%outputs
 
 :: Anaconda installation directory
-SET ANACONDA_DIR=%TOOL_STORAGE%\dependencies\miniforge
+SET ANACONDA_DIR=C:\Users\jchu\AppData\Local\anaconda3
 
 :: ---------------------------------------------------------------------
 :: Create Parameters file 
@@ -25,13 +25,19 @@ SET PARAMETERS_FILE=%OUTPUT_DIR%\temp\parameters.csv
 
 ECHO Key,Value > %PARAMETERS_FILE%
 ECHO MODEL_DIR,%MODEL_DIR% >> %PARAMETERS_FILE%
+:: T:\ABM\user\jchu\niwsc_high_density_development\input_updates\\..\abm_runs\no_build_navwar_2016 
+:: Would want to point to the original model scenario/network
+
 ECHO INPUT_DIR,%INPUT_DIR% >> %PARAMETERS_FILE%
+:: T:\ABM\user\jchu\niwsc_high_density_development\input_updates\2_landuse_converter\inputs 
 ECHO OUTPUT_DIR,%OUTPUT_DIR% >> %PARAMETERS_FILE%
+:: T:\ABM\user\jchu\niwsc_high_density_development\input_updates\2_landuse_converter\outputs 
 ECHO OVERRIDE_LU,%OVERRIDE_LU% >> %PARAMETERS_FILE%
 ECHO OVERRIDE_HH,%OVERRIDE_HH% >> %PARAMETERS_FILE%
 ECHO OVERRIDE_EMP,%OVERRIDE_EMP% >> %PARAMETERS_FILE%
 ECHO BUFFER,%BUFFER% >> %PARAMETERS_FILE%
 ECHO OVERRIDE_FILE,%OVERRIDE_FILE% >> %PARAMETERS_FILE%
+:: T:\ABM\user\jchu\niwsc_high_density_development\input_updates\\..\client_requests\project_data_NAVWAR.xlsx 
 
 
 :: Activate anaconda environment
