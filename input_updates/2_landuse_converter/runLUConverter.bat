@@ -17,7 +17,7 @@ SET INPUT_DIR=%WORKING_DIR%inputs
 SET OUTPUT_DIR=%WORKING_DIR%outputs
 
 :: Anaconda installation directory
-SET ANACONDA_DIR=C:\Users\jchu\AppData\Local\anaconda3
+SET ANACONDA_DIR=%TOOL_STORAGE%\dependencies\miniforge
 
 :: ---------------------------------------------------------------------
 :: Create Parameters file 

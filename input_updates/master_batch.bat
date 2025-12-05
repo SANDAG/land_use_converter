@@ -40,16 +40,24 @@ SET ROOT_DIR=%~dp0\..
 ::        If YES will copy updated inputs to the model scenario folders.
 ::
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-SET SCENARIO_TAG=navwar
-SET LANDUSE_FORM=project_data_NAVWAR.xlsx
+SET SCENARIO_TAG=SAMPLE
+SET LANDUSE_FORM=client_project_data.xlsx
 :: SET RUN_CREATE_BASELINE=NO
 :: SET RUN_CREATE_SCENARIO=NO
 :: SET RUN_01_ZONE_SPLIT=NO
 SET RUN_02_LANDUSE_CONVERTER=YES
 SET RUN_03_SYNTHETIC_POPULATION=YES
-SET RUN_04_FINAL_LU_UPDATE=NO
-SET RUN_05_HH_SAMPLING=NO
+SET RUN_04_FINAL_LU_UPDATE=YES
+SET RUN_05_HH_SAMPLING=YES
 SET COPY_TO_SCENARIOS=NO
+
+
+::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:: NEW USER INPUTS
+::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SET SCENARIO_DIR=***insert scenario directory***
+SET personFile=%SCENARIO_DIR%\input\persons.csv
+SET householdFile=%SCENARIO_DIR%\input\households.csv
 
 
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,17 +181,6 @@ SET SAMPLE3=1.0
 
 
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-:: NEW USER INPUTS
-:: Will need to find a 
-::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-SET SCENARIO_DIR=T:\projects\sr14\version14_3_0\abm_runs\2025_Vision
-SET personFile=%SCENARIO_DIR%\input\persons.csv
-SET householdFile=%SCENARIO_DIR%\input\households.csv
-
-
-
-::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :: Read Run Parameters
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -210,8 +207,8 @@ set TOOL_STORAGE=%TOOL_STORAGE:"=%
 :: 	) 
 :: SET "householdFile=%householdFile:/=\%"
 :: SET "personFile=%personFile:/=\%"
-:: SET ANACONDA_DIR=%TOOL_STORAGE%\dependencies\miniforge
-:: SET CONDA_ACT=%ANACONDA_DIR%\Scripts\activate.bat
+:: SET ANACONDA_DIR=%TOOL_STORAGE%
+:: SET CONDA_ACT=%ANACONDA_DIR%\Sc\dependencies\miniforgeripts\activate.bat
 :: SET CONDA=%ANACONDA_DIR%\Scripts\conda.exe
 :: SET PYTHON=%ANACONDA_DIR%\envs\geo_env\python.exe
 :: SET SCENARIO_TAGY=%SCENARIO_TAG%_%SCENARIO_YEAR%
@@ -464,7 +461,7 @@ del /q outputs\*
 SET LU_PARAM=%RUN_DIR%\4_final_lu_updates\outputs\temp\parameters.csv
 ECHO Key,Value > %LU_PARAM%
 ECHO WORKING_DIR,%RUN_DIR%\4_final_lu_updates >> %LU_PARAM%
-ECHO MODEL_DIR,%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% >> %LU_PARAM%
+ECHO MODEL_DIR,%SCENARIO_DIR% >> %LU_PARAM%
 ECHO OVERRIDE_FILE,%ROOT_DIR%\client_requests\%LANDUSE_FORM% >> %LU_PARAM%
 ECHO OVERRIDE,%OVERRIDE_HH% >> %LU_PARAM%
 ECHO %startTime%%Time% Running Final Land Use Updates...
@@ -517,18 +514,18 @@ IF %COPY_TO_SCENARIOS%==NO goto finale
 IF %COPY_TO_SCENARIOS%==YES goto copy_inputs
 
 :copy_inputs
-copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
-copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\uec" /Y
-copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\conf" /Y
-copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" /Y
-copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" /Y
-copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\conf" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\uec" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\conf" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\conf" /Y
 copy  "%RUN_DIR%\4_final_lu_updates\outputs\*.csv" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
 copy  "%RUN_DIR%\5_hh_sampling\outputs\build\*.csv"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
 copy  "%RUN_DIR%\5_hh_sampling\outputs\no_build\*.csv"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" /Y
 
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split"
+::mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\3_synthetic_population"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\4_final_lu_updates"
@@ -536,8 +533,8 @@ mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\build"
 mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\no_build"
-copy "%RUN_DIR%\1_taz_split\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
-copy "%RUN_DIR%\1_taz_split\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
+::copy "%RUN_DIR%\1_taz_split\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
+::copy "%RUN_DIR%\1_taz_split\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
 copy "%RUN_DIR%\2_landuse_converter\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter" /Y
 copy "%RUN_DIR%\2_landuse_converter\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter" /Y
 copy "%RUN_DIR%\3_synthetic_population\Setup\output\combined\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\3_synthetic_population" /Y

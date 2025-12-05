@@ -36,7 +36,7 @@ if os.path.isfile(os.path.join(WORKING_DIR,'..','2_landuse_converter','outputs',
 if os.path.isfile(os.path.join(WORKING_DIR,'..','2_landuse_converter','outputs','temp','negative_pop.txt')):
     has_neg = True
 
-orig_hh = pd.read_csv(os.path.join(MODEL_DIR,'input','original',properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+orig_hh = pd.read_csv(os.path.join(MODEL_DIR,properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
     
 if not has_hh and not has_gq and not has_neg:
     shutil.copy(os.path.join(WORKING_DIR,'..','2_landuse_converter','outputs',properties['mgra.socec.file'].split('/')[1]), os.path.join(WORKING_DIR,'..','4_final_lu_updates','outputs',properties['mgra.socec.file'].split('/')[1]))
@@ -46,8 +46,8 @@ if has_hh or has_gq:
     hh = pd.read_csv(os.path.join(WORKING_DIR,'..','3_synthetic_population','setup','output','combined','households.csv'))
     pop = pd.read_csv(os.path.join(WORKING_DIR,'..','3_synthetic_population','setup','output','combined','persons.csv'))
 else:
-    hh = pd.read_csv(os.path.join(MODEL_DIR,'input','original',properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
-    pop = pd.read_csv(os.path.join(MODEL_DIR,'input','original',properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+    hh = pd.read_csv(os.path.join(MODEL_DIR,properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+    pop = pd.read_csv(os.path.join(MODEL_DIR,properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
 if has_neg:
     hhcols = hh.columns
     popcols = pop.columns
