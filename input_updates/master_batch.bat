@@ -14,11 +14,11 @@ SET ROOT_DIR=%~dp0\..
 ::        name of filled in client land use data form which is saved under 'client_requests'.
 ::
 ::     RUN_CREATE_BASELINE:     
-::        If YES, will copy the no build model folder from the specified path to the SCENARIO_TAGY 
+::        If YES, will copy the no build model folder from the specified path to the SCENARIO_TAG 
 ::        folder and initialize the emme databank.
 ::
 ::     RUN_CREATE_SCENARIO:     
-::        If YES, will copy the no build model folder to the SCENARIO_TAGY folder and initialize 
+::        If YES, will copy the no build model folder to the SCENARIO_TAG folder and initialize 
 ::        the emme databank.
 ::
 ::     RUN_01_ZONE_SPLIT: 
@@ -211,71 +211,71 @@ set TOOL_STORAGE=%TOOL_STORAGE:"=%
 :: SET CONDA_ACT=%ANACONDA_DIR%\Sc\dependencies\miniforgeripts\activate.bat
 :: SET CONDA=%ANACONDA_DIR%\Scripts\conda.exe
 :: SET PYTHON=%ANACONDA_DIR%\envs\geo_env\python.exe
-:: SET SCENARIO_TAGY=%SCENARIO_TAG%_%SCENARIO_YEAR%
+:: SET SCENARIO_TAG=%SCENARIO_TAG%_%SCENARIO_YEAR%
 
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :: CAN MOST LIKELY DELETE THESE STEPS
 ::
 ::IF %RUN_CREATE_BASELINE%==NO goto create_scenario_step
-::IF EXIST %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% (
+::IF EXIST %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% (
 :: IF %RUN_CREATE_BASELINE%==YES goto exisiting_base )
-::IF NOT EXIST %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% (
+::IF NOT EXIST %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% (
 :: IF %RUN_CREATE_BASELINE%==YES goto overwrite )
 
 
 
 :::exisiting_base
-::choice /C:YN /M:"The baseline %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% already exists, overwrite? [YN]"
+::choice /C:YN /M:"The baseline %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% already exists, overwrite? [YN]"
 ::IF ERRORLEVEL ==2 GOTO no_overwrite
 ::IF ERRORLEVEL ==1 GOTO overwrite
 ::GOTO create_scenario_step
 
 :::overwrite
 ::echo creating no build directory
-::robocopy %NO_BUILD_MODEL_DIR% %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% *.* /XD "output" "emme_project" "application" "python" "bin" /E > %RUN_DIR%\tool.log
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input\original\input
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec\original
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\conf\original
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\output
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\python
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\application
-::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\bin
-::copy "%NO_BUILD_MODEL_DIR%\output\%filename%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\output"
-::copy "%NO_BUILD_MODEL_DIR%\%householdFile%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input\original\%householdFile%"
-::copy "%NO_BUILD_MODEL_DIR%\%personFile%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input\original\%personFile%"
-::robocopy "%ABM_RELEASE%"\common\application "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\application" *.* /E >> %RUN_DIR%\tool.log
-::robocopy "%ABM_RELEASE%"\common\python "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\python" *.* /E >> %RUN_DIR%\tool.log
-::robocopy "%ABM_RELEASE%"\common\bin "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\bin" *.* /E >> %RUN_DIR%\tool.log
-::robocopy "%ABM_RELEASE%"\common\input\input_checker\config "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input_checker\config" *.* /E >> %RUN_DIR%\tool.log
-::robocopy "%ABM_RELEASE%"\common\input\airports\ "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" *SAN.csv /E >> %RUN_DIR%\tool.log
+::robocopy %NO_BUILD_MODEL_DIR% %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% *.* /XD "output" "emme_project" "application" "python" "bin" /E > %RUN_DIR%\tool.log
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input\original\input
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\uec\original
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\conf\original
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\output
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\python
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\application
+::mkdir %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\bin
+::copy "%NO_BUILD_MODEL_DIR%\output\%filename%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\output"
+::copy "%NO_BUILD_MODEL_DIR%\%householdFile%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input\original\%householdFile%"
+::copy "%NO_BUILD_MODEL_DIR%\%personFile%" "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input\original\%personFile%"
+::robocopy "%ABM_RELEASE%"\common\application "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\application" *.* /E >> %RUN_DIR%\tool.log
+::robocopy "%ABM_RELEASE%"\common\python "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\python" *.* /E >> %RUN_DIR%\tool.log
+::robocopy "%ABM_RELEASE%"\common\bin "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\bin" *.* /E >> %RUN_DIR%\tool.log
+::robocopy "%ABM_RELEASE%"\common\input\input_checker\config "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input_checker\config" *.* /E >> %RUN_DIR%\tool.log
+::robocopy "%ABM_RELEASE%"\common\input\airports\ "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" *SAN.csv /E >> %RUN_DIR%\tool.log
 ::IF %VISION%==YES (
 ::    IF %SCENARIO_YEAR% GEQ 2030 (
 ::		ECHO Using Vision inputs; includes airport mobility hub
 ::		ECHO Using Vision inputs; includes airport mobility hub >> %RUN_DIR%\tool.log
-::		copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2050.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" >> %RUN_DIR%\tool.log
-::		copy "%ABM_RELEASE%"\input\2050\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" >> %RUN_DIR%\tool.log
+::		copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2050.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\uec" >> %RUN_DIR%\tool.log
+::		copy "%ABM_RELEASE%"\input\2050\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" >> %RUN_DIR%\tool.log
 ::	) ELSE (
 ::	    ECHO Vision Scenario before 2030; does not include airport mobility hub
 ::        ECHO Vision Scenario before 2030; does not include airport mobility hub >> %RUN_DIR%\tool.log
-::        copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2016.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" >> %RUN_DIR%\tool.log
-::        copy "%ABM_RELEASE%"\input\2016\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" >> %RUN_DIR%\tool.log
+::        copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2016.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\uec" >> %RUN_DIR%\tool.log
+::        copy "%ABM_RELEASE%"\input\2016\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" >> %RUN_DIR%\tool.log
 ::	)
 ::	
 ::) ELSE (
 ::    ECHO Using No Build inputs; does not include airport mobility hub
 ::    ECHO Using No Build inputs; does not include airport mobility hub >> %RUN_DIR%\tool.log
-::    copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2016.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" >> %RUN_DIR%\tool.log
-::    copy "%ABM_RELEASE%"\input\2016\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" >> %RUN_DIR%\tool.log
+::    copy "%ABM_RELEASE%"\common\uec\AirportModeChoice.SAN2016.xls "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\uec" >> %RUN_DIR%\tool.log
+::    copy "%ABM_RELEASE%"\input\2016\airport_employee_park.SAN.csv "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" >> %RUN_DIR%\tool.log
 ::)
 ::REM update the property file to include new properties from the release
 ::CALL %CONDA_ACT% geo_env
-::call %PYTHON% %TOOL_STORAGE%\helpers\check_properties.py %ABM_RELEASE% "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%" %VISION%
+::call %PYTHON% %TOOL_STORAGE%\helpers\check_properties.py %ABM_RELEASE% "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%" %VISION%
 ::if errorlevel 1 (
 ::    echo error in %TOOL_STORAGE%\helpers\check_properties.py python file
 ::	call conda.bat deactivate
 ::	cd %RUN_DIR%
 ::	EXIT /B )
-::call %PYTHON% %TOOL_STORAGE%\helpers\preserve_inputs.py %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%
+::call %PYTHON% %TOOL_STORAGE%\helpers\preserve_inputs.py %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%
 ::if errorlevel 1 (
 ::    echo error in %TOOL_STORAGE%\helpers\preserve_inputs.py python file
 ::	call conda.bat deactivate
@@ -283,7 +283,7 @@ set TOOL_STORAGE=%TOOL_STORAGE:"=%
 ::	EXIT /B )
 ::call conda.bat deactivate
 ::@echo init emme folder
-::call "%TOOL_STORAGE%"\helpers\init_emme.cmd "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%" %EMME_VERSION% "%ABM_RELEASE%"
+::call "%TOOL_STORAGE%"\helpers\init_emme.cmd "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%" %EMME_VERSION% "%ABM_RELEASE%"
 ::goto create_scenario_step
 ::
 
@@ -298,23 +298,23 @@ set TOOL_STORAGE=%TOOL_STORAGE:"=%
 
 ::IF %RUN_CREATE_SCENARIO%==NO goto taz_split_step
 
-::IF EXIST %ROOT_DIR%\abm_runs\%SCENARIO_TAGY% (
+::IF EXIST %ROOT_DIR%\abm_runs\%SCENARIO_TAG% (
 :: IF %RUN_CREATE_SCENARIO%==YES goto existing_scenario )
-::IF NOT EXIST %ROOT_DIR%\abm_runs\%SCENARIO_TAGY% (
+::IF NOT EXIST %ROOT_DIR%\abm_runs\%SCENARIO_TAG% (
 :: IF %RUN_CREATE_SCENARIO%==YES goto overwrite_scenario )
 
 :::existing_scenario
-::choice /C:YN /M:"The scenario %ROOT_DIR%\abm_runs\%SCENARIO_TAGY% already exists, overwrite? [YN]"
+::choice /C:YN /M:"The scenario %ROOT_DIR%\abm_runs\%SCENARIO_TAG% already exists, overwrite? [YN]"
 ::IF ERRORLEVEL ==2 GOTO no_overwrite_scenario
 ::IF ERRORLEVEL ==1 GOTO overwrite_scenario
 ::GOTO taz_split_step
 
 :::overwrite_scenario
 ::ECHO Creating Scenario
-::robocopy %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% %ROOT_DIR%\abm_runs\%SCENARIO_TAGY% *.* /XD "output" "emme_project" /E >> %RUN_DIR%\tool.log
-::mkdir %ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\output
+::robocopy %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% %ROOT_DIR%\abm_runs\%SCENARIO_TAG% *.* /XD "output" "emme_project" /E >> %RUN_DIR%\tool.log
+::mkdir %ROOT_DIR%\abm_runs\%SCENARIO_TAG%\output
 ::@echo init emme folder
-::call "%TOOL_STORAGE%"\helpers\init_emme.cmd "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%" %EMME_VERSION% "%ABM_RELEASE%"
+::call "%TOOL_STORAGE%"\helpers\init_emme.cmd "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%" %EMME_VERSION% "%ABM_RELEASE%"
 ::goto taz_split_step
 
 :::no_overwrite_scenario
@@ -341,7 +341,7 @@ set TOOL_STORAGE=%TOOL_STORAGE:"=%
 ::ECHO %startTime%%Time% Running TAZ Split Step... > tool.log
 ::cd %RUN_DIR%\1_taz_split
 ::CALL %CONDA_ACT% geo_env
-::call %PYTHON% scripts\taz_split_update.py %RUN_DIR%\1_taz_split %ROOT_DIR%\abm_runs\%SCENARIO_TAGY% %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY% %SPLIT_NETWORK_DIR% > 01_taz_split.log
+::call %PYTHON% scripts\taz_split_update.py %RUN_DIR%\1_taz_split %ROOT_DIR%\abm_runs\%SCENARIO_TAG% %ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG% %SPLIT_NETWORK_DIR% > 01_taz_split.log
 ::if errorlevel 1 (
 ::    echo error in TAZ SPlit
 ::	call conda.bat deactivate
@@ -514,37 +514,37 @@ IF %COPY_TO_SCENARIOS%==NO goto finale
 IF %COPY_TO_SCENARIOS%==YES goto copy_inputs
 
 :copy_inputs
-::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
-::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\uec" /Y
-::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\conf" /Y
-::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" /Y
-::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\uec" /Y
-::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\conf" /Y
-copy  "%RUN_DIR%\4_final_lu_updates\outputs\*.csv" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
-copy  "%RUN_DIR%\5_hh_sampling\outputs\build\*.csv"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\input" /Y
-copy  "%RUN_DIR%\5_hh_sampling\outputs\no_build\*.csv"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAGY%\input" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\input" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\uec" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\conf" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\input\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\uec\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\uec" /Y
+::copy  "%RUN_DIR%\1_taz_split\outputs\conf\*.*"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\conf" /Y
+copy  "%RUN_DIR%\4_final_lu_updates\outputs\*.csv" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\input" /Y
+copy  "%RUN_DIR%\5_hh_sampling\outputs\build\*.csv"  "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\input" /Y
+copy  "%RUN_DIR%\5_hh_sampling\outputs\no_build\*.csv"  "%ROOT_DIR%\abm_runs\no_build_%SCENARIO_TAG%\input" /Y
 
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update"
-::mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\3_synthetic_population"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\4_final_lu_updates"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\build"
-mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\no_build"
-::copy "%RUN_DIR%\1_taz_split\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
-::copy "%RUN_DIR%\1_taz_split\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\1_taz_split" /Y
-copy "%RUN_DIR%\2_landuse_converter\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter" /Y
-copy "%RUN_DIR%\2_landuse_converter\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\2_landuse_converter" /Y
-copy "%RUN_DIR%\3_synthetic_population\Setup\output\combined\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\3_synthetic_population" /Y
-copy "%RUN_DIR%\3_synthetic_population\Setup\logs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\3_synthetic_population" /Y
-copy "%RUN_DIR%\4_final_lu_updates\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\4_final_lu_updates" /Y
-copy "%RUN_DIR%\4_final_lu_updates\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\4_final_lu_updates" /Y
-copy "%RUN_DIR%\5_hh_sampling\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling" /Y
-copy "%RUN_DIR%\5_hh_sampling\outputs\build\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\build" /Y
-copy "%RUN_DIR%\5_hh_sampling\outputs\no_build\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling\outputs\no_build" /Y
-copy "%RUN_DIR%\5_hh_sampling\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAGY%\_input_update\5_hh_sampling" /Y
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update"
+::mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\1_taz_split"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\2_landuse_converter"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\3_synthetic_population"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\4_final_lu_updates"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling\outputs"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling\outputs\build"
+mkdir "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling\outputs\no_build"
+::copy "%RUN_DIR%\1_taz_split\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\1_taz_split" /Y
+::copy "%RUN_DIR%\1_taz_split\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\1_taz_split" /Y
+copy "%RUN_DIR%\2_landuse_converter\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\2_landuse_converter" /Y
+copy "%RUN_DIR%\2_landuse_converter\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\2_landuse_converter" /Y
+copy "%RUN_DIR%\3_synthetic_population\Setup\output\combined\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\3_synthetic_population" /Y
+copy "%RUN_DIR%\3_synthetic_population\Setup\logs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\3_synthetic_population" /Y
+copy "%RUN_DIR%\4_final_lu_updates\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\4_final_lu_updates" /Y
+copy "%RUN_DIR%\4_final_lu_updates\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\4_final_lu_updates" /Y
+copy "%RUN_DIR%\5_hh_sampling\outputs\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling" /Y
+copy "%RUN_DIR%\5_hh_sampling\outputs\build\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling\outputs\build" /Y
+copy "%RUN_DIR%\5_hh_sampling\outputs\no_build\*.*" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling\outputs\no_build" /Y
+copy "%RUN_DIR%\5_hh_sampling\*.log" "%ROOT_DIR%\abm_runs\%SCENARIO_TAG%\_input_update\5_hh_sampling" /Y
 goto finale
 
 :finale
