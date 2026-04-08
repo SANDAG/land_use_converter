@@ -182,26 +182,26 @@ class PopSampler(object):
                 print("USING TRUNCATED OUTPUTS")
                 self.persons    = pd.read_csv(_join(self.wdir,'..','4_final_lu_updates','outputs',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile'].split(r'/')[1]))
                 self.households = pd.read_csv(_join(self.wdir,'..','4_final_lu_updates','outputs',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile'].split(r'/')[1]))
-                self.persons_nb    = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
-                self.households_nb = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+                self.persons_nb    = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+                self.households_nb = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
             else:
                 print("USING POPSIM OUTPUTS")
                 self.persons    = pd.read_csv(_join(self.wdir,'..','3_synthetic_population','setup','output','combined',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile'].split('/')[1]))
                 self.households = pd.read_csv(_join(self.wdir,'..','3_synthetic_population','setup','output','combined',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile'].split('/')[1]))#.drop('SampleRate',axis = 1)
-                self.persons_nb    = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
-                self.households_nb = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+                self.persons_nb    = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+                self.households_nb = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
         elif os.path.isfile(_join(self.wdir,'..','2_landuse_converter','outputs','temp','negative_pop.txt')):
             print("USING TRUNCATED OUTPUTS")
             self.persons    = pd.read_csv(_join(self.wdir,'..','4_final_lu_updates','outputs',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile'].split(r'/')[1]))
             self.households = pd.read_csv(_join(self.wdir,'..','4_final_lu_updates','outputs',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile'].split(r'/')[1]))
-            self.persons_nb    = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
-            self.households_nb = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+            self.persons_nb    = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+            self.households_nb = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
         else:
             print("USING ORIGINAL HOUSEHOLDS")
-            self.persons    = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
-            self.households = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
-            self.persons_nb    = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
-            self.households_nb = pd.read_csv(_join(self.mdldir,'input','original',self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+            self.persons    = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+            self.households = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
+            self.persons_nb    = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.PersonFile']))
+            self.households_nb = pd.read_csv(_join(self.mdldir,self.properties['PopulationSynthesizer.InputToCTRAMP.HouseholdFile']))
         if 'SampleRate' in self.households.columns:
             del self.households['SampleRate']
         if 'SampleRate' in self.households_nb.columns:
