@@ -6,9 +6,7 @@ import pandas as pd
 import os
 import numpy as np
 import sys
-import ast
 import warnings
-from shutil import copyfile
 _join = os.path.join
 
 warnings.filterwarnings("ignore")  

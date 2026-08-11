@@ -1,0 +1,12 @@
+[project]
+name = "luct3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "folium",
+    "bokeh",
+    "geopandas",
+    "populationsim>=0.10.0"
+]
