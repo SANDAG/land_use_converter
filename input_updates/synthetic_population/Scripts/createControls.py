@@ -37,57 +37,57 @@ class RepopFeature(object):
         self.create_controls()
 
     def read_inputs(self):
-        self.parameters = pd.read_csv(self.params)
+        self.parameters = pd.read_csv(self.params, usecols=["Key", "Value"])
         self.mdldir = (
-            self.parameters[self.parameters.Key == "MODEL_DIR"]["Value "]
+            self.parameters[self.parameters.Key == "MODEL_DIR"]["Value"]
             .item()
             .strip(" ")
         )
         self.ludir = (
-            self.parameters[self.parameters.Key == "LU_DIR"]["Value "].item().strip(" ")
+            self.parameters[self.parameters.Key == "LU_DIR"]["Value"].item().strip(" ")
         )
         self.wdir = (
-            self.parameters[self.parameters.Key == "XWALK_DIR"]["Value "]
+            self.parameters[self.parameters.Key == "XWALK_DIR"]["Value"]
             .item()
             .strip(" ")
         )
         self.hhthresh = (
-            self.parameters[self.parameters.Key == "HHTHRESH"]["Value "]
+            self.parameters[self.parameters.Key == "HHTHRESH"]["Value"]
             .item()
             .strip(" ")
         )
         self.tazthresh = (
-            self.parameters[self.parameters.Key == "TAZTHRESH"]["Value "]
+            self.parameters[self.parameters.Key == "TAZTHRESH"]["Value"]
             .item()
             .strip(" ")
         )
         self.override = (
-            self.parameters[self.parameters.Key == "OVERRIDE"]["Value "]
+            self.parameters[self.parameters.Key == "OVERRIDE"]["Value"]
             .item()
             .strip(" ")
         )
         self.override_file = (
-            self.parameters[self.parameters.Key == "OVERRIDE_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "OVERRIDE_FILE"]["Value"]
             .item()
             .strip(" ")
         )
         self.mgra_lists = ast.literal_eval(
-            self.parameters[self.parameters.Key == "SAMPLE_MGRA"]["Value "]
+            self.parameters[self.parameters.Key == "SAMPLE_MGRA"]["Value"]
             .item()
             .strip(" ")
         )
         self.land_use_file = (
-            self.parameters[self.parameters.Key == "LAND_USE_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "LAND_USE_FILE"]["Value"]
             .item()
             .strip(" ")
         )
         self.household_file = (
-            self.parameters[self.parameters.Key == "HOUSEHOLD_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "HOUSEHOLD_FILE"]["Value"]
             .item()
             .strip(" ")
         )
         self.person_file = (
-            self.parameters[self.parameters.Key == "PERSON_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "PERSON_FILE"]["Value"]
             .item()
             .strip(" ")
         )

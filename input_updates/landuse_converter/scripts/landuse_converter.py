@@ -30,12 +30,12 @@ import sys
 import folium
 import geopandas as gpd
 import iteround
-from folium import FeatureGroup, LayerControl, Map, Marker
+from folium import FeatureGroup
 from folium.features import DivIcon
 from shutil import copyfile
 import warnings
 from bokeh.layouts import column
-from bokeh.plotting import figure, output_file, save
+from bokeh.plotting import output_file, save
 from bokeh.models import (
     ColumnDataSource,
     TableColumn,
@@ -44,7 +44,6 @@ from bokeh.models import (
     NumberFormatter,
     Div,
 )
-from bokeh.io import show
 from bokeh.models import Tabs, TabPanel
 
 
@@ -265,8 +264,7 @@ class LUConverter(object):
 
     def read_inputs(self):
         """Read inputs for the tool"""
-        self.parameters = pd.read_csv(self.parameters_file)
-        self.parameters.columns = ["Key", "Value"]
+        self.parameters = pd.read_csv(self.parameters_file, usecols=["Key", "Value"])
         self.outdir = (
             self.parameters[self.parameters.Key == "OUTPUT_DIR"]["Value"]
             .item()

@@ -34,27 +34,27 @@ class RepopFeature(object):
         self.construct_pipe()
 
     def read_inputs(self):
-        self.parameters = pd.read_csv(self.params)
+        self.parameters = pd.read_csv(self.params, usecols=["Key", "Value"])
         self.mdldir = (
-            self.parameters[self.parameters.Key == "MODEL_DIR"]["Value "]
+            self.parameters[self.parameters.Key == "MODEL_DIR"]["Value"]
             .item()
             .strip(" ")
         )
         self.ludir = (
-            self.parameters[self.parameters.Key == "LU_DIR"]["Value "].item().strip(" ")
+            self.parameters[self.parameters.Key == "LU_DIR"]["Value"].item().strip(" ")
         )
         self.wdir = (
-            self.parameters[self.parameters.Key == "XWALK_DIR"]["Value "]
+            self.parameters[self.parameters.Key == "XWALK_DIR"]["Value"]
             .item()
             .strip(" ")
         )
         self.household_file = (
-            self.parameters[self.parameters.Key == "HOUSEHOLD_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "HOUSEHOLD_FILE"]["Value"]
             .item()
             .strip(" ")
         )
         self.person_file = (
-            self.parameters[self.parameters.Key == "PERSON_FILE"]["Value "]
+            self.parameters[self.parameters.Key == "PERSON_FILE"]["Value"]
             .item()
             .strip(" ")
         )

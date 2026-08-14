@@ -5,8 +5,7 @@ import os, sys
 # read properties from parameters file
 parameters_file = sys.argv[1]
 
-parameters = pd.read_csv(parameters_file)
-parameters.columns = ["Key", "Value"]
+parameters = pd.read_csv(parameters_file, usecols=["Key", "Value"])
 WORKING_DIR = parameters[parameters.Key == "WORKING_DIR"]["Value"].item().strip(" ")
 outputDir = os.path.join(WORKING_DIR, "Setup", "output")
 XWALK_DIR = parameters[parameters.Key == "XWALK_DIR"]["Value"].item().strip(" ")
