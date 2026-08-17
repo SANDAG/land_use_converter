@@ -24,6 +24,7 @@ Land Use Converter for SANDAG ABM2+ Enhancement plan
 #
 # import inro.modeller as _m
 import pandas as pd
+import glob
 import numpy as np
 import os
 import sys
@@ -1739,4 +1740,20 @@ class LUConverter(object):
 
 if __name__ == "__main__":
     luc = LUConverter(sys.argv[1])
+    # Clean prior outputs
+    for f in glob.glob(os.path.join(luc.outdir, "*")):
+        if os.path.isfile(f):
+            os.remove(f)
+    for f in glob.glob(os.path.join(luc.outdir, "temp", "*")):
+        if os.path.isfile(f) and not f.endswith("tmp.txt"):
+            os.remove(f)
+
     luc()
+
+    # Validate outputs
+    no_lu = os.path.join(luc.outdir, "temp", "no_lu.txt")
+    html_output = os.path.join(luc.outdir, "landuse_updates.html")
+    if not os.path.isfile(no_lu) and not os.path.isfile(html_output):
+        raise FileNotFoundError(
+            "Land use converter produced no output. Check log for errors."
+        )

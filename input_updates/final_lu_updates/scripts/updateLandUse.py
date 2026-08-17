@@ -1,3 +1,4 @@
+import glob
 import pandas as pd
 import sys
 import os
@@ -7,6 +8,12 @@ import numpy as np
 parameters_file = sys.argv[1]
 parameters = pd.read_csv(parameters_file, usecols=["Key", "Value"])
 WORKING_DIR = parameters[parameters.Key == "WORKING_DIR"]["Value"].item().strip(" ")
+
+# Clean prior outputs
+output_dir = os.path.join(WORKING_DIR, "..", "final_lu_updates", "outputs")
+for f in glob.glob(os.path.join(output_dir, "*.csv")):
+    os.remove(f)
+
 MODEL_DIR = parameters[parameters.Key == "MODEL_DIR"]["Value"].item().strip(" ")
 override = parameters[parameters.Key == "OVERRIDE"]["Value"].item().strip(" ")
 override_file = parameters[parameters.Key == "OVERRIDE_FILE"]["Value"].item().strip(" ")
@@ -218,3 +225,9 @@ lu.to_csv(
     os.path.join(WORKING_DIR, "..", "final_lu_updates", "outputs", lu_filename),
     index=False,
 )
+
+# Validate that output CSVs were produced
+if not glob.glob(os.path.join(output_dir, "*.csv")):
+    raise FileNotFoundError(
+        "Final LU update produced no output CSVs. Check log for errors."
+    )
