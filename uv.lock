@@ -353,6 +353,14 @@ wheels = [
 ]
 
 [[package]]
+name = "iteround"
+version = "1.0.4"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/26/c7/68d920f791cd99919d82dd6db9fc0aca3790dc8d67c69b559a447ca2a914/iteround-1.0.4-py3-none-any.whl", hash = "sha256:17947dd5479177e6fb186b0a3d5d594b55eedea14dc722c6da7e84bbed45f5b2", size = 7333, upload-time = "2022-04-20T21:03:46.817Z" },
+]
+
+[[package]]
 name = "jinja2"
 version = "3.1.6"
 source = { registry = "https://pypi.org/simple" }
@@ -393,6 +401,7 @@ dependencies = [
     { name = "bokeh" },
     { name = "folium" },
     { name = "geopandas" },
+    { name = "iteround" },
     { name = "populationsim" },
 ]
 
@@ -401,6 +410,7 @@ requires-dist = [
     { name = "bokeh" },
     { name = "folium" },
     { name = "geopandas" },
+    { name = "iteround" },
     { name = "populationsim", specifier = ">=0.10.0" },
 ]
 

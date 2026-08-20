@@ -8,5 +8,6 @@ dependencies = [
     "folium",
     "bokeh",
     "geopandas",
-    "populationsim>=0.10.0"
+    "populationsim>=0.10.0",
+    "iteround"
 ]
